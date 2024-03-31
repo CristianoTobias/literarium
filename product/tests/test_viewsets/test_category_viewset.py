@@ -26,4 +26,18 @@ class TestCategoryViewSet(APITestCase):
         created_category = Category.objects.get(title='technology')
         
         self.assertEqual(created_category.title, 'technology')
-
+    def test_update_category(self):
+        new_title = 'updated category'
+        
+        # Realiza uma requisição PUT para atualizar a categoria
+        response = self.client.put(
+            reverse('category-detail', kwargs={'version': 'v1', 'pk': self.category.id}), 
+            data=json.dumps({'title': new_title}),
+            content_type='application/json'
+        )
+        
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        
+        # Verifica se a categoria foi atualizada corretamente no banco de dados
+        updated_category = Category.objects.get(id=self.category.id)
+        self.assertEqual(updated_category.title, new_title)

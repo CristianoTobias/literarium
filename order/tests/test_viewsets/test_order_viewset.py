@@ -34,5 +34,9 @@ class TestOrderViewSet(APITestCase):
         response = self.client.post(reverse('order-list', kwargs={'version': 'v1'}), data=data, content_type='application/json')
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         created_order = Order.objects.get(user=user)
-
-
+        
+    def test_delete_order(self):
+        # Test to delete an order
+        response = self.client.delete(reverse('order-detail', kwargs={'version': 'v1', 'pk': self.order.pk}))
+        self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
+        self.assertFalse(Order.objects.filter(pk=self.order.pk).exists())

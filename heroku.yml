@@ -2,5 +2,5 @@ build:
   docker:
     web: Dockerfile
 run:
-  web: gunicorn literarium.wsgi:aplication --bind 0.0.0.0:$PORT
+  web: gunicorn literarium.wsgi:application --bind 0.0.0.0:$PORT
 

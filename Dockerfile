@@ -31,7 +31,7 @@ RUN apt-get update \
     && rm -rf /var/lib/apt/lists/*
 
 # install poetry via pip
-RUN pip install poetry
+RUN pip install --no-cache-dir poetry
 
 # copy project requirement files here to ensure they will be cached.
 WORKDIR $PYSETUP_PATH
